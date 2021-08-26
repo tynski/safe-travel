@@ -1,3 +1,1 @@
-[
-    
-]
+[{"country":"Poland","Neighbors":{"Germany":"Red","Slovakia":"Green"}},{"country":"Germany","Neighbors":{"Germany":"","Slovakia":"Green"}}]
