@@ -17,7 +17,7 @@ func postCountry(c *gin.Context) {
 		return
 	}
 
-	if countryAdded := AddCountry(newCountry); countryAdded == false {
+	if countryAdded := AddCountry(newCountry); !countryAdded {
 		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "ID not avaible"})
 		return
 	}

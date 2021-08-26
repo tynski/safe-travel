@@ -9,13 +9,14 @@ import (
 
 type country struct {
 	Country   string `json:"country"`
-	Neighbors []struct {
-		Neighbor string `json:"neighbor"`
-		Color    string `json:"color"`
-	}
+	Neighbors struct {
+		Germany  string `json:"Germany"`
+		Slovakia string `json:"Slovakia"`
+		Poland   string `json:"Poland"`
+	} `json:"Neighbors"`
 }
 
-const fileName = "/data/countries.json"
+const fileName = "./data/countries.json"
 
 func GetCountries() []country {
 	var countries []country
