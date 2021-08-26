@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,7 +11,18 @@ func getCountry(c *gin.Context) {
 }
 
 func postCountry(c *gin.Context) {
+	var newCountry country
 
+	if err := c.BindJSON(&newCountry); err != nil {
+		return
+	}
+
+	if countryAdded := AddCountry(newCountry); countryAdded == false {
+		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "ID not avaible"})
+		return
+	}
+
+	c.IndentedJSON(http.StatusCreated, newCountry)
 }
 
 func updateCountry(c *gin.Context) {
