@@ -34,7 +34,18 @@ func postCountry(c *gin.Context) {
 }
 
 func updateCountry(c *gin.Context) {
+	var updateCountry country
 
+	if err := c.BindJSON(&updateCountry); err != nil {
+		return
+	}
+
+	if countryUpdated := UpdateCountry(updateCountry); !countryUpdated {
+		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "ID not avaible"})
+		return
+	}
+
+	c.IndentedJSON(http.StatusCreated, updateCountry)
 }
 
 func deleteCountry(c *gin.Context) {

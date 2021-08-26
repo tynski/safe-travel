@@ -53,6 +53,20 @@ func AddCountry(newCountry country) bool {
 		}
 	}
 
+	UpdateCountries(countries, newCountry)
+
+	return true
+}
+
+func UpdateCountry(updateCountry country) bool {
+
+	DeleteCountry(updateCountry.Country)
+	UpdateCountries(countries, updateCountry)
+
+	return false
+}
+
+func UpdateCountries(countries []country, newCountry country) {
 	countries = append(countries, newCountry)
 
 	result, err := json.Marshal(countries)
@@ -64,6 +78,15 @@ func AddCountry(newCountry country) bool {
 	if err := ioutil.WriteFile(fileName, result, 0644); err != nil {
 		log.Fatal(err)
 	}
+}
 
-	return true
+func DeleteCountry(deleteCountry string) {
+	countries := GetCountries()
+
+	for i, a := range countries {
+		if a.Country == deleteCountry {
+			countries = append(countries[:i], countries[i+1:]...)
+			return
+		}
+	}
 }
