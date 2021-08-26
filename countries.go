@@ -32,6 +32,18 @@ func GetCountries() []country {
 	return countries
 }
 
+func GetCountry(country string) *country {
+	countries := GetCountries()
+
+	for _, a := range countries {
+		if a.Country == country {
+			return &a
+		}
+	}
+
+	return nil
+}
+
 func AddCountry(newCountry country) bool {
 	countries := GetCountries()
 

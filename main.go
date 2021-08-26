@@ -7,7 +7,15 @@ import (
 )
 
 func getCountry(c *gin.Context) {
+	country := c.Param("country")
+	result := GetCountry(country)
 
+	if result != nil {
+		c.IndentedJSON(http.StatusOK, result)
+		return
+	}
+
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "country not found"})
 }
 
 func postCountry(c *gin.Context) {
