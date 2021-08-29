@@ -2,13 +2,15 @@
 
 Web service handling RESTful requests.
 
-## GET
+## REST API
+
+### GET
 ```
 GET /countries/:country 
 ```
 For a given country returns json with countries and corresponding color.
 
-## POST
+### POST
 ```
 POST /countries
 ```
@@ -17,14 +19,18 @@ Allows to add entry to database with given json file. Example of json file:
 {"country":"Poland","Neighbors":{"Germany":"Red","Slovakia":"Green"}}
 ```
 
-## PUT
+### PUT
 ```
 PUT /countries
 ```
 Update existing entry with given json file. Entry must exists.
 
-## DELETE
+### DELETE
 ```
 DELETE /countries/:country
 ```
 Deletes given country from database.
+
+## TODO
+* unit tests
+
