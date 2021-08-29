@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"os"
 )
 
@@ -32,11 +31,11 @@ func GetCountries() []country {
 	return countries
 }
 
-func GetCountry(country string) *country {
+func GetCountry(findCountry string) *country {
 	countries := GetCountries()
 
 	for _, a := range countries {
-		if a.Country == country {
+		if a.Country == findCountry {
 			return &a
 		}
 	}
@@ -53,40 +52,70 @@ func AddCountry(newCountry country) bool {
 		}
 	}
 
-	UpdateCountries(countries, newCountry)
+	countries = append(countries, newCountry)
+	UpdateCountries(countries)
 
 	return true
 }
 
-func UpdateCountry(updateCountry country) bool {
+func UpdateCountry(updateCountry string) bool {
+	newCountry := GetCountry(updateCountry)
 
-	DeleteCountry(updateCountry.Country)
-	UpdateCountries(countries, updateCountry)
+	if newCountry == nil {
+		return false
+	}
 
-	return false
+	countries := GetCountries()
+
+	if len(countries) < 3 {
+		return false
+	}
+
+	newCountries := append(DeleteFromCountries(countries, updateCountry), *newCountry)
+
+	if err := UpdateCountries(newCountries); err != nil {
+		return false
+	}
+
+	return true
 }
 
-func UpdateCountries(countries []country, newCountry country) {
-	countries = append(countries, newCountry)
+func DeleteCountry(deleteCountry string) bool {
+	countries := GetCountries()
 
+	if len(countries) < 3 {
+		return false
+	}
+
+	newCountries := DeleteFromCountries(countries, deleteCountry)
+
+	if err := UpdateCountries(newCountries); err != nil {
+		return false
+	}
+
+	return true
+}
+
+func UpdateCountries(countries []country) error {
 	result, err := json.Marshal(countries)
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	if err := ioutil.WriteFile(fileName, result, 0644); err != nil {
-		log.Fatal(err)
+		return err
 	}
+
+	return nil
 }
 
-func DeleteCountry(deleteCountry string) {
-	countries := GetCountries()
-
+func DeleteFromCountries(countries []country, deleteCountry string) []country {
 	for i, a := range countries {
 		if a.Country == deleteCountry {
-			countries = append(countries[:i], countries[i+1:]...)
-			return
+			return append(countries[:i], countries[i+1:]...)
 		}
 	}
+
+	return countries
 }

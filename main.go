@@ -26,7 +26,7 @@ func postCountry(c *gin.Context) {
 	}
 
 	if countryAdded := AddCountry(newCountry); !countryAdded {
-		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "ID not avaible"})
+		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "country not avaible"})
 		return
 	}
 
@@ -34,22 +34,25 @@ func postCountry(c *gin.Context) {
 }
 
 func updateCountry(c *gin.Context) {
-	var updateCountry country
+	country := c.Param("country")
 
-	if err := c.BindJSON(&updateCountry); err != nil {
+	if countryUpdated := UpdateCountry(country); !countryUpdated {
+		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "country not avaible"})
 		return
 	}
 
-	if countryUpdated := UpdateCountry(updateCountry); !countryUpdated {
-		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "ID not avaible"})
-		return
-	}
-
-	c.IndentedJSON(http.StatusCreated, updateCountry)
+	c.IndentedJSON(http.StatusOK, country)
 }
 
 func deleteCountry(c *gin.Context) {
+	country := c.Param("country")
 
+	if countryDeleted := DeleteCountry(country); !countryDeleted {
+		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "country not found"})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, country)
 }
 
 func main() {
