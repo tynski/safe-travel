@@ -7,7 +7,7 @@ Web service handling RESTful requests.
 ### GET
 For a given country returns json with countries and corresponding color. Example of GET request with curl:
 ```
-curl GET http://localhost:8080/countries
+curl GET http://localhost:8080/countries/Poland
 ```
 
 ### POST
@@ -23,7 +23,7 @@ curl http://localhost:8080/countries \
 ### PUT
 Update existing entry with given json file. Entry must exists. Example of POST request with curl:
 ```
-curl http://localhost:8080/countries/Poland \
+curl http://localhost:8080/countries \
     --include \
     --header "Content-Type: application/json" \
     --request "PUT" \
