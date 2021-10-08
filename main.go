@@ -34,14 +34,23 @@ func postCountry(c *gin.Context) {
 }
 
 func updateCountry(c *gin.Context) {
-	country := c.Param("country")
+	var update country
 
-	if countryUpdated := UpdateCountry(country); !countryUpdated {
+	if err := c.BindJSON(&update); err != nil {
+		return
+	}
+
+	if countryDeleted := DeleteCountry(update.Country); !countryDeleted {
+		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "country not found"})
+		return
+	}
+
+	if countryAdded := AddCountry(update); !countryAdded {
 		c.IndentedJSON(http.StatusNotAcceptable, gin.H{"message": "country not avaible"})
 		return
 	}
 
-	c.IndentedJSON(http.StatusOK, country)
+	c.IndentedJSON(http.StatusOK, updateCountry)
 }
 
 func deleteCountry(c *gin.Context) {
@@ -60,7 +69,7 @@ func main() {
 
 	router.GET("/countries/:country", getCountry)
 	router.POST("/countries", postCountry)
-	router.PUT("/countries/:country", updateCountry)
+	router.PUT("/countries", updateCountry)
 	router.DELETE("countries/:country", deleteCountry)
 
 	router.Run("localhost:8080")
