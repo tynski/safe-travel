@@ -5,32 +5,32 @@ Web service handling RESTful requests.
 ## REST API
 
 ### GET
+For a given country returns json with countries and corresponding color. Example of GET request with curl:
 ```
-GET /countries/:country 
+curl GET http://localhost:8080/countries
 ```
-For a given country returns json with countries and corresponding color.
 
 ### POST
+Allows to add entry to database with given json file. Example of POST request with curl:
 ```
-POST /countries
-```
-Allows to add entry to database with given json file. Example of json file:
-```
-{"country":"Poland","Neighbors":{"Germany":"Red","Slovakia":"Green"}}
+curl http://localhost:8080/countries \
+    --include \
+    --header "Content-Type: application/json" \
+    --request "POST" \
+    --data '{"country":"Poland","Neighbors":{"Germany":"Red", "Slovakia":"Green"}}'
 ```
 
 ### PUT
+Update existing entry with given json file. Entry must exists. Example of POST request with curl:
 ```
-PUT /countries
+curl http://localhost:8080/countries/Poland \
+    --include \
+    --header "Content-Type: application/json" \
+    --request "PUT" \
+    --data '{"country":"Poland","Neighbors":{"Germany":"Red", "Slovakia":"Red"}}'
 ```
-Update existing entry with given json file. Entry must exists.
-
 ### DELETE
+Deletes given country from database. Example of DELETE request with curl:
 ```
-DELETE /countries/:country
+curl DELETE http://localhost:8080/countries/Poland
 ```
-Deletes given country from database.
-
-## TODO
-* unit tests
-
