@@ -62,10 +62,13 @@ func AddCountry(newCountry country) bool {
 
 func DeleteCountry(deleteCountry string) bool {
 	countries := GetCountries()
+	deleted := false
 
 	for i, a := range countries {
 		if a.Country == deleteCountry {
 			countries = append(countries[:i], countries[i+1:]...)
+			deleted = true
+			break
 		}
 	}
 
@@ -73,7 +76,7 @@ func DeleteCountry(deleteCountry string) bool {
 		return false
 	}
 
-	return true
+	return deleted
 }
 
 func UpdateCountries(countries []country) error {
