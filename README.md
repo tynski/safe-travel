@@ -34,7 +34,3 @@ Deletes given country from database. Example of DELETE request with curl:
 ```
 curl DELETE http://localhost:8080/countries/Poland
 ```
-
-## TODO
-* test the code
-* add response examples
