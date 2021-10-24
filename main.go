@@ -50,7 +50,7 @@ func updateCountry(c *gin.Context) {
 		return
 	}
 
-	c.IndentedJSON(http.StatusOK, updateCountry)
+	c.IndentedJSON(http.StatusOK, update)
 }
 
 func deleteCountry(c *gin.Context) {
@@ -61,7 +61,7 @@ func deleteCountry(c *gin.Context) {
 		return
 	}
 
-	c.IndentedJSON(http.StatusOK, country)
+	c.IndentedJSON(http.StatusOK, gin.H{"message": "country deleted"})
 }
 
 func main() {
