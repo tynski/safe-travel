@@ -7,12 +7,11 @@ import (
 )
 
 type country struct {
-	Country   string `json:"country"`
-	Neighbors struct {
-		Germany  string `json:"Germany"`
-		Slovakia string `json:"Slovakia"`
-		Poland   string `json:"Poland"`
-	} `json:"Neighbors"`
+	Country string `json:"country"`
+	Others  []struct {
+		Code  string `json:"code"`
+		Color string `json:"color"`
+	} `json:"others"`
 }
 
 const fileName = "./data/countries.json"
@@ -53,27 +52,8 @@ func AddCountry(newCountry country) bool {
 	}
 
 	countries = append(countries, newCountry)
-	UpdateCountries(countries)
 
-	return true
-}
-
-func UpdateCountry(updateCountry string) bool {
-	newCountry := GetCountry(updateCountry)
-
-	if newCountry == nil {
-		return false
-	}
-
-	countries := GetCountries()
-
-	if len(countries) < 3 {
-		return false
-	}
-
-	newCountries := append(DeleteFromCountries(countries, updateCountry), *newCountry)
-
-	if err := UpdateCountries(newCountries); err != nil {
+	if err := UpdateCountries(countries); err != nil {
 		return false
 	}
 
@@ -83,13 +63,13 @@ func UpdateCountry(updateCountry string) bool {
 func DeleteCountry(deleteCountry string) bool {
 	countries := GetCountries()
 
-	if len(countries) < 3 {
-		return false
+	for i, a := range countries {
+		if a.Country == deleteCountry {
+			countries = append(countries[:i], countries[i+1:]...)
+		}
 	}
 
-	newCountries := DeleteFromCountries(countries, deleteCountry)
-
-	if err := UpdateCountries(newCountries); err != nil {
+	if err := UpdateCountries(countries); err != nil {
 		return false
 	}
 
@@ -108,14 +88,4 @@ func UpdateCountries(countries []country) error {
 	}
 
 	return nil
-}
-
-func DeleteFromCountries(countries []country, deleteCountry string) []country {
-	for i, a := range countries {
-		if a.Country == deleteCountry {
-			return append(countries[:i], countries[i+1:]...)
-		}
-	}
-
-	return countries
 }
