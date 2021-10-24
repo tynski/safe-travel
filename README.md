@@ -17,7 +17,25 @@ curl http://localhost:8080/countries \
     --include \
     --header "Content-Type: application/json" \
     --request "POST" \
-    --data '{"country":"Poland","Neighbors":{"Germany":"Red", "Slovakia":"Green"}}'
+    --data '{"country": "Bulgaria",
+                "others": [
+                    {
+                        "code": "Montenegro", "color": "orange"
+                    },
+                    {
+                        "code": "Serbia", "color": "red"
+                    },
+                    {
+                        "code": "Macedonia", "color": "green"
+                    },
+                    {
+                        "code": "Greece", "color": "green"
+                    },
+                    {
+                        "code": "Romania", "color": "red"
+                    }        
+                ]
+            }'
 ```
 
 ### PUT
@@ -27,7 +45,25 @@ curl http://localhost:8080/countries \
     --include \
     --header "Content-Type: application/json" \
     --request "PUT" \
-    --data '{"country":"Poland","Neighbors":{"Germany":"Red", "Slovakia":"Red"}}'
+    --data '{"country": "Bulgaria",
+                "others": [
+                    {
+                        "code": "Montenegro", "color": "orange"
+                    },
+                    {
+                        "code": "Serbia", "color": "red"
+                    },
+                    {
+                        "code": "Macedonia", "color": "green"
+                    },
+                    {
+                        "code": "Greece", "color": "green"
+                    },
+                    {
+                        "code": "Romania", "color": "red"
+                    }        
+                ]
+            }'
 ```
 ### DELETE
 Deletes given country from database. Example of DELETE request with curl:
