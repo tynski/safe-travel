@@ -1,1 +1,1 @@
-[{"country":"Poland","Neighbors":{"Germany":"Red","Slovakia":"Green"}},{"country":"Germany","Neighbors":{"Germany":"","Slovakia":"Green"}}]
+[{"country":"Austria","others":[{"code":"Switzerland","color":"green"},{"code":"Italy","color":"green"},{"code":"Slovenia","color":"yellow"},{"code":"Hungary","color":"orange"},{"code":"Slovakia","color":"green"},{"code":"Germany","color":"red"},{"code":"Czechia","color":"green"}]}]
