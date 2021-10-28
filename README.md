@@ -2,6 +2,32 @@
 
 Web service handling RESTful requests.
 
+## Database
+
+Data is stored in a document oriented manner. The databaser is a JSON file storing information for each country. Example row looks as follows:
+```
+{
+    "country": "Bulgaria",
+    "others": [
+        {
+            "code": "Montenegro", "color": "orange"
+        },
+        {
+            "code": "Serbia", "color": "red"
+        },
+        {
+            "code": "Macedonia", "color": "green"
+        },
+        {
+            "code": "Greece", "color": "green"
+        },
+        {
+            "code": "Romania", "color": "red"
+        }        
+    ]
+}
+```
+
 ## REST API
 
 ### GET
